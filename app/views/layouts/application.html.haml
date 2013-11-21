@@ -1,9 +1,14 @@
 !!!
-%html
+%html{:lang => 'en'}
   %head
     %title MconfChatAuthExample
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "ZeroClipboard"
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        %h4
+          = link_to "Mconf-Chat authentication server example", root_path
     = yield

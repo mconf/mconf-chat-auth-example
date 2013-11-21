@@ -13,5 +13,41 @@
  */
 
 body {
-  padding: 30px;
+  padding: 60px 30px 30px 30px;
+  text-align: left;
+}
+
+.navbar-inner {
+  font-weight: bold;
+  h4 {
+    margin-left: 10px;
+  }
+}
+
+.navbar-inner h4 {
+  margin-left: 10px;
+}
+
+.navbar-inner a {
+  color: #333;
+}
+
+#view-token {
+  margin: 30px 0;
+  font-size: 36px;
+}
+
+#chat-token-container {
+  font-size: 46px;
+  font-weight: bold;
+  margin: 50px;
+}
+
+ul {
+  li {
+    margin: 5px 0;
+  }
+}
+
+#copy-button {
 }

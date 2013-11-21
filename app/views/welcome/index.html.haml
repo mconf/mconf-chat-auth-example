@@ -1,9 +1,12 @@
-%h1 Mconf-Chat authentication server example
-
 - if current_user
-  %p= "Hi, #{current_user.name}!"
-  %p= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
-- else
-  %p= link_to "Click here to sign up", new_user_registration_path
+  %h3= "Hi, #{current_user.name}!"
 
-%p= link_to "Click here to see your token", show_chat_token_path
+#view-token
+  = link_to "Click here to see your token", show_chat_token_path
+
+%br
+%ul
+  - if current_user
+    %li= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
+  - else
+    %li= link_to "Click here to sign up", new_user_registration_path

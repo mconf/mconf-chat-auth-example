@@ -1,8 +1,14 @@
 - if current_user
   %p= "Your chat token is:"
-  %h1= "#{current_user.chat_token}"
-  %p= link_to "Generate new token", create_chat_token_path, method: 'post'
-  %p= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
+
+  #chat-token-container
+    %span#chat-token= "#{current_user.chat_token}"
+    %button.btn.btn-mini{ :id => "copy-button", :'data-clipboard-target' => "chat-token", :title => "Click to copy the token." }
+      = "Copy to Clipboard"
+
+  %ul
+    %li= link_to "Generate new token", create_chat_token_path, method: 'post'
+    %li= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
 - else
   %p= "You need to be logged in to access this page"
   %p= link_to "Click here to login", new_user_session_path
