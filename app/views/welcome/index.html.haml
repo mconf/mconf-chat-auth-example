@@ -4,4 +4,6 @@
   %p= "Hi, #{current_user.name}!"
   %p= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
 - else
-  %p= link_to "Click here to login", new_user_session_path
+  %p= link_to "Click here to sign up", new_user_registration_path
+
+%p= link_to "Click here to see your token", show_chat_token_path
