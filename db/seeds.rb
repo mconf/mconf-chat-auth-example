@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+params = {
+  email: "test@mconf.org",
+  name: "Test User",
+  username: "test",
+  password: "test"
+}
+u = User.create(params)
+u.save!
+puts "Created user: #{u.inspect}"

@@ -1,2 +1,7 @@
-%h1 Welcome#index
-%p Find me in app/views/welcome/index.html.haml
+%h1 Mconf-Chat authentication server example
+
+- if current_user
+  %p= "Hi, #{current_user.name}!"
+  %p= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
+- else
+  %p= link_to "Click here to login", new_user_session_path
