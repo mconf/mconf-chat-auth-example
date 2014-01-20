@@ -1,14 +1,26 @@
 - if current_user
-  %p= "Your chat token is:"
 
-  #chat-token-container
-    %span#chat-token= "#{current_user.chat_token}"
-    %button.btn.btn-mini{ :id => "copy-button", :'data-clipboard-target' => "chat-token", :title => "Click to copy the token." }
-      = "Copy to Clipboard"
+  - if params[:token]
+    .alert.alert-info
+      #new-token-buttons
+        = link_to 'Yes', update_chat_token_path(params), method: 'post', :class => 'btn btn-success'
+        -# %button.btn.btn-success{ :id => "yes-button", :title => "Click to accept this application." }= 'Yes'
+        = link_to 'No', show_chat_token_path, :class => 'btn btn-danger'
+      %p= "Would you like to allow access to this new application? (will override the current application!)"
+      %span#chat-token-new= "#{params[:token]}"
+
+  - if current_user.chat_token
+    .well
+      %p= "You allowed access to this application:"
+      %span#chat-token= "#{current_user.chat_token}"
+  - else
+    .well
+      %p= "You have not allowed access to any application yet."
 
   %ul
-    %li= link_to "Generate new token", create_chat_token_path, method: 'post'
+    %li= link_to "Force generation of a new token (for admins)", create_chat_token_path, method: 'post'
     %li= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
+
 - else
   %p= "You need to be logged in to access this page"
   %p= link_to "Click here to login", new_user_session_path
