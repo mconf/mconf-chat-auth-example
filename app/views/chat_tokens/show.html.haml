@@ -7,12 +7,17 @@
         -# %button.btn.btn-success{ :id => "yes-button", :title => "Click to accept this application." }= 'Yes'
         = link_to 'No', show_chat_token_path, :class => 'btn btn-danger'
       %p= "Would you like to allow access to this new application? (will override the current application!)"
-      %span#chat-token-new= "#{params[:token]}"
+      %span#chat-token-new= "#{params[:application] || params[:token]}"
 
   - if current_user.chat_token
     .well
       %p= "You allowed access to this application:"
-      %span#chat-token= "#{current_user.chat_token}"
+      %span#chat-token
+        - if current_user.chat_application
+          = current_user.chat_application
+        - else
+          = "<no name>"
+        = " (token: #{current_user.chat_token})"
   - else
     .well
       %p= "You have not allowed access to any application yet."

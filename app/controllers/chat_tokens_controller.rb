@@ -14,7 +14,7 @@ class ChatTokensController < ApplicationController
 
   def update
     if params[:token]
-      current_user.update_attributes(chat_token: params[:token])
+      current_user.update_attributes(chat_token: params[:token], chat_application: params[:application])
     end
     redirect_to show_chat_token_path
   end

@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
     update_attributes(chat_token: SecureRandom.hex(8))
   end
 
+  def chat_identifier
+    chat_application || chat_token
+  end
+
 end
