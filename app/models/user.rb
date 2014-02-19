@@ -4,12 +4,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def update_token
-    update_attributes(chat_token: SecureRandom.hex(8))
-  end
-
-  def chat_identifier
-    chat_application || chat_token
-  end
-
+  has_many :chat_tokens
 end

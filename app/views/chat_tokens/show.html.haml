@@ -1,12 +1,14 @@
 - if current_user
 
   - if params[:token]
-    .alert.alert-info
+    .alert.alert-danger
       #new-token-buttons
-        = link_to 'Yes', update_chat_token_path(params), method: 'post', :class => 'btn btn-success'
+        = link_to 'Yes', create_chat_token_path(params), method: 'post', :class => 'btn btn-success'
         -# %button.btn.btn-success{ :id => "yes-button", :title => "Click to accept this application." }= 'Yes'
         = link_to 'No', show_chat_token_path, :class => 'btn btn-danger'
-      %p= "Would you like to allow access to this new application? (will override the current application!)"
+      %p= "Would you like to allow access to this application?"
+      - if @token_taken
+        %p= "You already have a token for this application, so this will override the current token!"
       %span#chat-token-new
         - if params[:application]
           = params[:application]
@@ -14,21 +16,23 @@
           = "<no name>"
         %span.token= " (token: #{params[:token]})"
 
-  - if current_user.chat_token
-    .well
-      %p= "You allowed access to this application:"
-      %span#chat-token
-        - if current_user.chat_application
-          = current_user.chat_application
-        - else
-          = "<no name>"
-        %span.token= " (token: #{current_user.chat_token})"
+  %p= "You allowed access to the applications below:"
+  - unless current_user.chat_tokens.empty?
+    - for token in current_user.chat_tokens
+      .token-container
+        %span.chat-token
+          - if token.application
+            = token.application
+          - else
+            = "<no name>"
+          %span.token= " (token: #{token.token})"
+        = link_to 'Randomize', randomize_chat_token_path({ id: token.id }), method: 'post', :class => 'btn btn-mini', :confirm => "Are you sure?"
+        = link_to 'Remove', destroy_chat_token_path({ id: token.id }), method: 'delete', :class => 'btn btn-mini btn-danger', :confirm => "Are you sure?"
   - else
     .well
       %p= "You have not allowed access to any application yet."
 
   %ul
-    %li= link_to "Force generation of a new token (for admins)", create_chat_token_path, method: 'post'
     %li= link_to "Click here to logout", destroy_user_session_path, method: 'delete'
 
 - else

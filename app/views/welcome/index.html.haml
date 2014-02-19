@@ -1,23 +1,27 @@
-.alert
+.alert.alert-info
   %p
     This is an example of a web portal that can be used to authenticate users for
     = link_to "Mconf's desktop chat client.", 'https://github.com/mconf/mconf-chat-desktop'
     The source code for this application can be found
     = link_to 'in this repository.', 'https://github.com/mconf/mconf-chat-auth-example'
   %p
+    %b Technical details:
     It receives a 'token' from the desktop client and ask the user to accept it. Once accepted,
-    the user can then sign in using this token as a password. The fact that a token exists and is
-    a password is transparent to the user, that will need only to accept/deny access to the
-    application.
-    Currently only a single token is stored, but a real implementation could store multiple
-    tokens to allow access to multiple chat clients simultaneously.
+    the user can then sign in to the desktop chat client using this token as a password.
+    The fact that a token exists and is a used as a password is transparent to the user, that will
+    need only to accept/deny access to the application.
+    In this example application multiple tokens are stored. The tokens are indexed by the name of
+    the application, that is a string with the application name plus the machine's hostname
+    (e.g. mconf-chat-desktop@mconf-test). This means that each application can have one token
+    stored for each machine it runs in, allowing multiple instances of the desktop chat client to
+    be used simultaneously in different machines.
 
 - if current_user
   %h3= "Hi, #{current_user.username}!"
 - else
   %h3= 'You need to sign in or create an account to get access to your token'
 
-#view-token.alert.alert-info
+#view-token
   = link_to "Click here to see your token", show_chat_token_path
 
 %br
